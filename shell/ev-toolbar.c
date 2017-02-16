@@ -227,7 +227,7 @@ ev_toolbar_constructed (GObject *object)
         gtk_header_bar_pack_start (GTK_HEADER_BAR (ev_toolbar), button);
 
 	/* Print */
-	button = ev_toolbar_create_toggle_button (ev_toolbar, "win.toggle-print", "print-file",_("Print..."));
+	button = ev_toolbar_create_toggle_button (ev_toolbar, "win.toggle-print", "document-print",_("Print…"));
 	ev_toolbar->priv->print_button = button;
         gtk_widget_set_margin_end (button, 6);
         gtk_header_bar_pack_start (GTK_HEADER_BAR (ev_toolbar), button);
