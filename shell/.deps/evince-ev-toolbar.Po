@@ -619,7 +619,7 @@ evince-ev-toolbar.o: ev-toolbar.c /usr/include/stdc-predef.h ../config.h \
  /usr/include/bits/huge_val.h /usr/include/bits/huge_valf.h \
  /usr/include/bits/huge_vall.h /usr/include/bits/inf.h \
  /usr/include/bits/nan.h /usr/include/bits/mathdef.h \
- /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h
+ /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h sign.h
 
 /usr/include/stdc-predef.h:
 
@@ -2088,3 +2088,5 @@ ev-application.h:
 /usr/include/bits/mathcalls.h:
 
 /usr/include/bits/mathinline.h:
+
+sign.h:

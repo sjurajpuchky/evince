@@ -33,6 +33,7 @@
 #include "ev-application.h"
 #include "ev-page-action-widget.h"
 #include <math.h>
+#include "sign.h"
 
 enum
 {
@@ -51,6 +52,7 @@ struct _EvToolbarPrivate {
         GtkWidget *navigation_action;
         GtkWidget *find_button;
 	GtkWidget *print_button;
+	GtkWidget *sign_state;
         GtkWidget *open_button;
         GMenu *bookmarks_section;
 
@@ -232,6 +234,29 @@ ev_toolbar_constructed (GObject *object)
         gtk_widget_set_margin_end (button, 6);
         gtk_header_bar_pack_start (GTK_HEADER_BAR (ev_toolbar), button);
 
+	switch(ev_sign_state) {
+		case NO_SELECTED:
+		break;
+		case SIGN_OK:
+        button = ev_toolbar_create_toggle_button (ev_toolbar, "win.sign_state_ok", "emblem-ok-symbolic.symbolic",_("Sign state OK"));
+        ev_toolbar->priv->sign_state = button;
+        gtk_widget_set_margin_end (button, 6);
+        gtk_header_bar_pack_start (GTK_HEADER_BAR (ev_toolbar), button);
+		break;
+		case SIGN_WARN:
+        button = ev_toolbar_create_toggle_button (ev_toolbar, "win.sign_state_warn", "dialog-warning-symbolic.symbolic",_("Sign state Warning"));
+        ev_toolbar->priv->sign_state = button;
+        gtk_widget_set_margin_end (button, 6);
+        gtk_header_bar_pack_start (GTK_HEADER_BAR (ev_toolbar), button);
+		break;
+		case SIGN_ERROR:
+        button = ev_toolbar_create_toggle_button (ev_toolbar, "win.sign_sate_error", "dialog-error-symbolic.symbolic",_("Sign state Error"));
+        ev_toolbar->priv->sign_state = button;
+        gtk_widget_set_margin_end (button, 6);
+        gtk_header_bar_pack_start (GTK_HEADER_BAR (ev_toolbar), button);
+		break;
+	}
+
         /* Action Menu */
         menu = G_MENU_MODEL (gtk_builder_get_object (builder, "action-menu"));
         button = ev_toolbar_create_menu_button (ev_toolbar, "open-menu-symbolic",
@@ -373,7 +398,21 @@ ev_toolbar_set_mode (EvToolbar     *ev_toolbar,
                 gtk_widget_show (priv->page_selector);
                 gtk_widget_show (priv->find_button);
                 gtk_widget_show (priv->print_button);
-                gtk_widget_hide (priv->open_button);
+        switch(ev_sign_state) {
+                case NO_SELECTED:
+                break;
+                case SIGN_OK:
+                gtk_widget_show (priv->sign_state);
+		break;
+                case SIGN_WARN:
+                gtk_widget_show (priv->sign_state);
+                break;
+                case SIGN_ERROR:
+                gtk_widget_show (priv->sign_state);
+                break;
+        }
+                
+		gtk_widget_hide (priv->open_button);
                 break;
         case EV_TOOLBAR_MODE_FULLSCREEN:
                 gtk_widget_show (priv->view_menu_button);
@@ -383,6 +422,20 @@ ev_toolbar_set_mode (EvToolbar     *ev_toolbar,
                 gtk_widget_show (priv->page_selector);
                 gtk_widget_show (priv->find_button);
                 gtk_widget_show (priv->print_button);
+        switch(ev_sign_state) {
+                case NO_SELECTED:
+                break;
+                case SIGN_OK:
+                gtk_widget_show (priv->sign_state);
+                break;
+                case SIGN_WARN:
+                gtk_widget_show (priv->sign_state);
+                break;
+                case SIGN_ERROR:
+                gtk_widget_show (priv->sign_state);
+                break;
+        }
+
                 gtk_widget_hide (priv->open_button);
                 break;
 	case EV_TOOLBAR_MODE_RECENT_VIEW:
@@ -393,6 +446,7 @@ ev_toolbar_set_mode (EvToolbar     *ev_toolbar,
                 gtk_widget_hide (priv->page_selector);
                 gtk_widget_hide (priv->find_button);
                 gtk_widget_hide (priv->print_button);
+                gtk_widget_hide (priv->sign_state);
                 gtk_widget_show (priv->open_button);
                 break;
         }

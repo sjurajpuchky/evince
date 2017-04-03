@@ -32,6 +32,7 @@
 #include "ev-file-helpers.h"
 #include "ev-stock-icons.h"
 #include "ev-metadata.h"
+#include "sign.h"
 
 #ifdef G_OS_WIN32
 #include <io.h>
@@ -52,6 +53,7 @@ static gboolean presentation_mode = FALSE;
 static gboolean unlink_temp_file = FALSE;
 static gchar   *print_settings;
 static const char **file_arguments = NULL;
+T_SIGN_STATE ev_sign_state = NO_SELECTED;
 
 
 static gboolean
@@ -66,6 +68,37 @@ option_version_cb (const gchar *option_name,
   return FALSE;
 }
 
+static gboolean
+option_sign_ok_cb (const gchar *option_name,
+                   const gchar *value,
+                   gpointer     data,
+                   GError     **error)
+{
+  ev_sign_state = SIGN_OK;
+  return TRUE;
+}
+
+static gboolean
+option_sign_warn_cb (const gchar *option_name,
+                   const gchar *value,
+                   gpointer     data,
+                   GError     **error)
+{
+  ev_sign_state = SIGN_WARN;
+  return TRUE;
+}
+
+static gboolean
+option_sign_error_cb (const gchar *option_name,
+                   const gchar *value,
+                   gpointer     data,
+                   GError     **error)
+{
+  ev_sign_state = SIGN_ERROR;
+  return TRUE;
+}
+
+
 static const GOptionEntry goption_options[] =
 {
 	{ "page-label", 'p', 0, G_OPTION_ARG_STRING, &ev_page_label, N_("The page label of the document to display."), N_("PAGE")},
@@ -78,6 +111,9 @@ static const GOptionEntry goption_options[] =
 	{ "unlink-tempfile", 'u', G_OPTION_FLAG_HIDDEN, G_OPTION_ARG_NONE, &unlink_temp_file, NULL, NULL },
 	{ "print-settings", 't', G_OPTION_FLAG_HIDDEN, G_OPTION_ARG_FILENAME, &print_settings, NULL, NULL },
 	{ "version", 0, G_OPTION_FLAG_NO_ARG | G_OPTION_FLAG_HIDDEN, G_OPTION_ARG_CALLBACK, option_version_cb, NULL, NULL },
+	{ "sign-ok", 0, G_OPTION_FLAG_NO_ARG , G_OPTION_ARG_CALLBACK, option_sign_ok_cb, N_("Display sign OK"), NULL },
+	{ "sign-warn", 0, G_OPTION_FLAG_NO_ARG , G_OPTION_ARG_CALLBACK, option_sign_warn_cb, N_("Display sign Warn"), NULL },
+	{ "sign-error", 0, G_OPTION_FLAG_NO_ARG , G_OPTION_ARG_CALLBACK, option_sign_error_cb, N_("Display sign Error"), NULL },
 	{ G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &file_arguments, NULL, N_("[FILE…]") },
 	{ NULL }
 };
