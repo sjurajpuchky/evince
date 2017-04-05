@@ -233,24 +233,23 @@ ev_toolbar_constructed (GObject *object)
 	ev_toolbar->priv->print_button = button;
         gtk_widget_set_margin_end (button, 6);
         gtk_header_bar_pack_start (GTK_HEADER_BAR (ev_toolbar), button);
-
 	switch(ev_sign_state) {
 		case NO_SELECTED:
 		break;
 		case SIGN_OK:
-        button = ev_toolbar_create_toggle_button (ev_toolbar, "win.sign_state_ok", "emblem-ok-symbolic.symbolic",_("Sign state OK"));
+        button = ev_toolbar_create_toggle_button (ev_toolbar, "win.sign_state", "emblem-ok-symbolic.symbolic",_("Sign state OK"));
         ev_toolbar->priv->sign_state = button;
         gtk_widget_set_margin_end (button, 6);
         gtk_header_bar_pack_start (GTK_HEADER_BAR (ev_toolbar), button);
 		break;
 		case SIGN_WARN:
-        button = ev_toolbar_create_toggle_button (ev_toolbar, "win.sign_state_warn", "dialog-warning-symbolic.symbolic",_("Sign state Warning"));
+        button = ev_toolbar_create_toggle_button (ev_toolbar, "win.sign_state", "dialog-warning-symbolic.symbolic",_("Sign state Warning"));
         ev_toolbar->priv->sign_state = button;
         gtk_widget_set_margin_end (button, 6);
         gtk_header_bar_pack_start (GTK_HEADER_BAR (ev_toolbar), button);
 		break;
 		case SIGN_ERROR:
-        button = ev_toolbar_create_toggle_button (ev_toolbar, "win.sign_sate_error", "dialog-error-symbolic.symbolic",_("Sign state Error"));
+        button = ev_toolbar_create_toggle_button (ev_toolbar, "win.sign_state", "dialog-error-symbolic.symbolic",_("Sign state Error"));
         ev_toolbar->priv->sign_state = button;
         gtk_widget_set_margin_end (button, 6);
         gtk_header_bar_pack_start (GTK_HEADER_BAR (ev_toolbar), button);

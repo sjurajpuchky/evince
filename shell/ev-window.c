@@ -234,6 +234,7 @@ struct _EvWindowPrivate {
 	gboolean has_mailto_handler;
 };
 
+
 #define EV_WINDOW_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EV_TYPE_WINDOW, EvWindowPrivate))
 
@@ -3526,6 +3527,18 @@ ev_window_cmd_file_print (GSimpleAction *action,
 }
 
 static void
+ev_window_cmd_exec (GSimpleAction *action,
+                          GVariant      *state,
+                          gpointer       user_data)
+{
+	//   /usr/bin/pdfsiginfo
+	EvWindow *ev_window = user_data;
+        char *cmd = malloc(1024);
+	sprintf(cmd,"%s %s","/usr/bin/pdfsiginfo",ev_window->priv->uri);
+	system(cmd);
+}
+
+static void
 ev_window_cmd_file_properties (GSimpleAction *action,
 			       GVariant      *state,
 			       gpointer       user_data)
@@ -5815,6 +5828,7 @@ static const GActionEntry actions[] = {
 	{ "find", ev_window_cmd_find },
 	{ "toggle-find", NULL, NULL, "false", ev_window_cmd_toggle_find },
 	{ "toggle-print", ev_window_cmd_file_print },
+	{ "sign_state", ev_window_cmd_exec },
 	{ "find-next", ev_window_cmd_edit_find_next },
 	{ "find-previous", ev_window_cmd_edit_find_previous },
 	{ "select-page", ev_window_cmd_focus_page_selector },
