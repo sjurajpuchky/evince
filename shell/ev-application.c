@@ -271,7 +271,7 @@ ev_application_get_empty_window (EvApplication *application,
 			break;
 		}
 	}
-
+	gtk_window_maximize(GTK_WINDOW(empty_window));
 	return empty_window;
 }
 
