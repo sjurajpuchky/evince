@@ -43,6 +43,8 @@
 #include "ev-gdbus-generated.h"
 #include "ev-media-player-keys.h"
 #endif /* ENABLE_DBUS */
+#include "maxwin.h"
+
 
 struct _EvApplication {
 	GtkApplication base_instance;
@@ -271,7 +273,9 @@ ev_application_get_empty_window (EvApplication *application,
 			break;
 		}
 	}
-	gtk_window_maximize(GTK_WINDOW(empty_window));
+	if(maximize_window) {
+		gtk_window_maximize(GTK_WINDOW(empty_window));
+	}
 	return empty_window;
 }
 

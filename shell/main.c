@@ -33,6 +33,7 @@
 #include "ev-stock-icons.h"
 #include "ev-metadata.h"
 #include "sign.h"
+#include "maxwin.h"
 
 #ifdef G_OS_WIN32
 #include <io.h>
@@ -54,6 +55,7 @@ static gboolean unlink_temp_file = FALSE;
 static gchar   *print_settings;
 static const char **file_arguments = NULL;
 T_SIGN_STATE ev_sign_state = NO_SELECTED;
+gboolean maximize_window = FALSE;
 
 
 static gboolean
@@ -98,6 +100,17 @@ option_sign_error_cb (const gchar *option_name,
   return TRUE;
 }
 
+static gboolean
+option_maximize_cb (const gchar *option_name,
+                   const gchar *value,
+                   gpointer     data,
+                   GError     **error)
+{
+  maximize_window = TRUE;
+  return TRUE;
+}
+
+
 
 static const GOptionEntry goption_options[] =
 {
@@ -114,6 +127,7 @@ static const GOptionEntry goption_options[] =
 	{ "sign-ok", 0, G_OPTION_FLAG_NO_ARG , G_OPTION_ARG_CALLBACK, option_sign_ok_cb, N_("Display sign OK"), NULL },
 	{ "sign-warn", 0, G_OPTION_FLAG_NO_ARG , G_OPTION_ARG_CALLBACK, option_sign_warn_cb, N_("Display sign Warn"), NULL },
 	{ "sign-error", 0, G_OPTION_FLAG_NO_ARG , G_OPTION_ARG_CALLBACK, option_sign_error_cb, N_("Display sign Error"), NULL },
+	{ "maximize", 0, G_OPTION_FLAG_NO_ARG , G_OPTION_ARG_CALLBACK, option_maximize_cb, N_("Maximize window"), NULL },
 	{ G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &file_arguments, NULL, N_("[FILE…]") },
 	{ NULL }
 };

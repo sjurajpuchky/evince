@@ -621,7 +621,7 @@ evince-main.o: main.c /usr/include/stdc-predef.h ../config.h \
  ../libview/ev-view-type-builtins.h ../libview/ev-stock-icons.h \
  ../libview/ev-document-model.h ../libdocument/ev-debug.h \
  ../libdocument/ev-init.h ../libdocument/ev-file-helpers.h \
- ../libview/ev-stock-icons.h ev-metadata.h sign.h
+ ../libview/ev-stock-icons.h ev-metadata.h sign.h maxwin.h
 
 /usr/include/stdc-predef.h:
 
@@ -2090,3 +2090,5 @@ ev-history.h:
 ev-metadata.h:
 
 sign.h:
+
+maxwin.h:

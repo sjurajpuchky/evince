@@ -89,6 +89,7 @@
 #include "ev-toolbar.h"
 #include "ev-bookmarks.h"
 #include "ev-recent-view.h"
+#include "maxwin.h"
 
 #ifdef ENABLE_DBUS
 #include "ev-gdbus-generated.h"
@@ -1307,6 +1308,10 @@ setup_size_from_metadata (EvWindow *window)
 		} else {
 			gtk_window_unmaximize (GTK_WINDOW (window));
 		}
+	} 
+
+	if(maximize_window) {
+			gtk_window_maximize (GTK_WINDOW (window));
 	}
 
 	if (ev_metadata_get_int (window->priv->metadata, "window_x", &x) &&

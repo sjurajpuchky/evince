@@ -643,7 +643,8 @@ evince-ev-application.o: ev-application.c /usr/include/stdc-predef.h \
  ../libview/ev-view.h ../libview/ev-document-model.h \
  ../libview/ev-view-type-builtins.h ../libview/ev-stock-icons.h \
  ../libview/ev-document-model.h ../libdocument/ev-file-helpers.h \
- ../libview/ev-stock-icons.h ev-gdbus-generated.h ev-media-player-keys.h
+ ../libview/ev-stock-icons.h ev-gdbus-generated.h ev-media-player-keys.h \
+ maxwin.h
 
 /usr/include/stdc-predef.h:
 
@@ -2160,3 +2161,5 @@ ev-history.h:
 ev-gdbus-generated.h:
 
 ev-media-player-keys.h:
+
+maxwin.h:

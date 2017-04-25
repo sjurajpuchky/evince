@@ -646,7 +646,7 @@ evince-ev-window.o: ev-window.c /usr/include/stdc-predef.h ../config.h \
  ../libview/ev-view-type-builtins.h ev-window-title.h \
  ../libview/ev-print-operation.h ev-progress-message-area.h \
  ev-annotation-properties-dialog.h ev-bookmark-action.h ev-zoom-action.h \
- ev-toolbar.h ev-recent-view.h ev-gdbus-generated.h \
+ ev-toolbar.h ev-recent-view.h maxwin.h ev-gdbus-generated.h \
  ev-media-player-keys.h /usr/include/gtk-3.0/gdk/gdkx.h \
  /usr/include/X11/Xlib.h /usr/include/X11/X.h \
  /usr/include/X11/Xfuncproto.h /usr/include/X11/Xosdefs.h \
@@ -2253,6 +2253,8 @@ ev-zoom-action.h:
 ev-toolbar.h:
 
 ev-recent-view.h:
+
+maxwin.h:
 
 ev-gdbus-generated.h:
 
